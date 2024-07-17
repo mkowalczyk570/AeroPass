@@ -1,7 +1,6 @@
 import random
 import string
 import bcrypt
-import re
 
 def generatePassword(length=10, numLowers=6, numCapitals=1, numDigits=2, numSpecialCharacters=1):
     if(type(length) is not int or type(numLowers) is not int or type(numCapitals) is not int or type(numDigits) is not int or type(numSpecialCharacters) is not int):
@@ -24,4 +23,14 @@ def generatePassword(length=10, numLowers=6, numCapitals=1, numDigits=2, numSpec
     return password
 
 def hashAndSavePassword(platform, password):
-    raise NotImplemented
+    bytes = password.encode('utf-8')
+    salt = bcrypt.gensalt()
+    hashedPassword = bcrypt.hashpw(bytes, salt)
+    platformEntry = platform + ": "
+    entry = platformEntry + hashedPassword.decode('utf-8') + "\n"
+    f = open("demofile.txt", "a")
+    f.write(entry)
+    f.close()
+    
+password = generatePassword(10, 5, 1, 1, 3)
+hashAndSavePassword("Steam", password)
