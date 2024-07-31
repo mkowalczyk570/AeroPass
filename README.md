@@ -1,7 +1,7 @@
 # AeroPass
 A local password manager built to generate and manage user passwords for any platform of their choice
 
-#Usage
+##Usage
 Create a .config file in the project folder with a valid Fernet key. You can generate one by executing Fernet.generatekey() in another python file. 
 
 As of right now, there is no GUI, as it is still in development. In order to use the script, execute the following in order. You may use either the python file or the terminal to do this.
