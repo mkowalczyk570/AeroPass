@@ -33,6 +33,7 @@ def createAccount(username, masterPassword):
             pass
     except FileExistsError:
         print(f"The account '{username.lower()}' already exists.")
+    
     hashedPassword = encryptPassword(masterPassword)
     usernameEntry = username.lower() + ": "
     entry = usernameEntry + hashedPassword.decode('utf-8') + "\n"
@@ -40,7 +41,12 @@ def createAccount(username, masterPassword):
     f.write(entry)
     f.close()
     return "Account created: " + username.lower()
-    
+
+def validatePassword(encryptedPw, providedPw, key):
+    fernet = Fernet(key)
+    decryptedPw = fernet.decrypt(encryptedPw)
+    return decryptedPw.decode('utf-8') == providedPw    
+
 def validateUser(username, masterPassword):
     match = ""
     with open("master.txt") as file:
@@ -59,10 +65,7 @@ def validateUser(username, masterPassword):
     else:
         raise ValueError("Username or master password is incorrect")
 
-def validatePassword(encryptedPw, providedPw, key):
-    fernet = Fernet(KEY)
-    decryptedPw = fernet.decrypt(encryptedPw)
-    return decryptedPw.decode('utf-8') == providedPw
+
 
 def decryptPassword(encryptedPw):
     fernet = Fernet(KEY)
