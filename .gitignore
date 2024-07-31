@@ -1,2 +1,2 @@
-passwords.txt
-master.txt
+*.txt
+.config
