@@ -76,7 +76,7 @@ def encryptPassword(password):
     cipherText = cipherSuite.encrypt(password.encode("utf-8"))
     return cipherText
 
-def savePassword(username, masterPassword, platform, password):
+def savePassword(username, masterPassword, platform, password=generatePassword()):
     validateUser(username, masterPassword)
     with open(username.lower() + ".txt") as file:
         for line in file:
