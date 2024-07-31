@@ -11,7 +11,7 @@ This creates a new 'account' which creates a text file formatted as {username.tx
 
 2. savePassword(username, masterPassword, platform, password)
 This function will take the above parameters and store the platform and encrypted password for said platform in a text file named {username.txt}. By default, the password field will be automatically generated using the generatePassword() function, which 
-has its own set of parameters listed below:
+has its own set of parameters listed below:<br/>
   generatePassword(length, numLowers, numCaptials, numDigits, numSpecialCharacters)
       By default the length=10, numLowers=6, numCaptials=1, numDigits=2, numSpecialCharacters=2. You can change these values as you wish, just be sure that the number of characters equals your password length.
 
