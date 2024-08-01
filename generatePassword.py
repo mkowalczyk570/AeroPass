@@ -5,6 +5,7 @@ import os
 
 with open('.config', 'r') as file:
     KEY = file.readline().strip()
+    
 
 def generatePassword(length=10, numLowers=6, numCapitals=1, numDigits=2, numSpecialCharacters=1):
     if(type(length) is not int or type(numLowers) is not int or type(numCapitals) is not int or type(numDigits) is not int or type(numSpecialCharacters) is not int):
@@ -32,7 +33,7 @@ def createAccount(username, masterPassword):
         with open(filename, 'x') as file:
             pass
     except FileExistsError:
-        print(f"The account '{username.lower()}' already exists.")
+        return f"The account '{username.lower()}' already exists."
     
     hashedPassword = encryptPassword(masterPassword)
     usernameEntry = username.lower() + ": "
@@ -61,9 +62,10 @@ def validateUser(username, masterPassword):
         if validatePassword(encryptedPw, masterPassword, KEY):
             return "User validated"   
         else:
-            raise ValueError("Username or master password is incorrect")
+            return ValueError("Username or master password is incorrect")
+            
     else:
-        raise ValueError("Username or master password is incorrect")
+        return ValueError("Username or master password is incorrect")
 
 
 
@@ -81,7 +83,7 @@ def savePassword(username, masterPassword, platform, password=generatePassword()
     with open(username.lower() + ".txt") as file:
         for line in file:
             if platform.lower() in line:
-                raise ValueError("Platform already exists!")
+                return ValueError("Platform already exists!")
     bytes = encryptPassword(password)
     platformEntry = platform.lower() + ": "
     entry = platformEntry + bytes.decode('utf-8') + "\n"
@@ -106,10 +108,11 @@ def retrievePassword(username, masterPassword, platform):
             return f"Your password for '{platform}' is '{decryptPassword(encryptedPw).decode('utf-8')}'"
 
         else:
-            raise ValueError("No password associated with given platform")
+            return ValueError("No password associated with given platform")
 
     else:
-        raise ValueError("No account associated with username, please create an account to proceed")
+        return ValueError("No account associated with username, please create an account to proceed")
 
 
-print(retrievePassword("aero", "AeroThunder02", "Steam"))
+result = retrievePassword("aero", "AeroThunder", "Steam")
+print(result)
