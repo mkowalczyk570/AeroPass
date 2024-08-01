@@ -68,8 +68,6 @@ def validateUser(username, masterPassword):
     else:
         return ValueError("Username or master password is incorrect")
 
-
-
 def decryptPassword(encryptedPw):
     fernet = Fernet(KEY)
     return fernet.decrypt(encryptedPw)    
@@ -115,6 +113,3 @@ def retrievePassword(username, masterPassword, platform):
     else:
         return ValueError("No account associated with username, please create an account to proceed")
 
-
-result = retrievePassword("aero", "AeroThunder", "Steam")
-print(result)
