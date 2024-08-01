@@ -2,6 +2,7 @@ import random
 import string
 from cryptography.fernet import Fernet
 import os
+import pyperclip
 
 with open('.config', 'r') as file:
     KEY = file.readline().strip()
@@ -105,7 +106,8 @@ def retrievePassword(username, masterPassword, platform):
         if match != "":
             platformTuple = match.strip().split(": ") 
             encryptedPw = platformTuple[1]
-            return f"Your password for '{platform}' is '{decryptPassword(encryptedPw).decode('utf-8')}'"
+            pyperclip.copy(decryptPassword(encryptedPw).decode("utf-8"))
+            return f"Your password for '{platform}' is '{decryptPassword(encryptedPw).decode('utf-8')}'. It has been copied to your clipboard."
 
         else:
             return ValueError("No password associated with given platform")
